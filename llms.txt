@@ -1,0 +1,32 @@
+# StartWork
+
+> iPhone app for logging work time to Jira as worklogs. Tap a tile to start a timer, tap again and describe the work in one sentence; the app writes a standard Jira worklog to that ticket. Runs entirely on the device: no account, no server of the developer, no analytics. One-time purchase on the App Store, no subscription.
+
+- App Store: https://apps.apple.com/app/id6813155367
+- Website (English, German, French, Portuguese, Spanish): https://startwork.iamnotadev.xyz/
+- Help: https://daddycation.github.io/startwork-datenschutz/en/support
+- Privacy policy: https://daddycation.github.io/startwork-datenschutz/en/
+- Contact: info@iamnotadev.xyz
+
+## What it does
+- Tiles for your regular tickets, title fetched from Jira
+- Add tickets by key or by pasting a Jira link
+- Rounding to 5 or 15 minutes, if your company wants it
+- Test mode: see what would be logged before logging for real
+- Notification while a timer runs, so you don’t forget it
+- Face ID lock – a Jira token lives on the device
+- Daily report to share, plus previous days for the stand-up
+- Optional: polish comments for the client with AI, using your own Anthropic key and only after explicit consent
+
+## Requirements and limits
+- Needs a Jira instance the user can sign in to with their own token: Jira Cloud (email + API token), Jira Server or Data Center (personal access token).
+- Writes standard Jira worklogs, so Tempo Timesheets sees them. Required Tempo "Work Attributes" are not filled in.
+- iPhone only. App interface in English, German, French, Portuguese and Spanish.
+- The optional AI polishing uses the user's own Anthropic API key and runs only after explicit consent.
+
+## Questions
+- How do I log time in Jira from my iPhone? Install StartWork, enter your Jira address and an API token once, and add your tickets as tiles. Tap a tile to start the clock, tap again to stop, write one sentence – StartWork logs it as a worklog on that ticket.
+- Does it work with Tempo? Yes. StartWork writes standard Jira worklogs, which Tempo reads. Required Tempo fields (“Work Attributes”) are not filled in.
+- Which Jira versions are supported? Jira Cloud (sign-in with email and API token) as well as Jira Server and Data Center (personal access token).
+- What happens to my data? It stays on your iPhone and goes only to your own Jira. No analytics, no tracking, no account with us.
+- Is it a subscription? No. You pay once in the App Store.

@@ -1,0 +1,90 @@
+/* StartWork – Produktseite. Farben und Schriften wie in der App. */
+@font-face{font-family:'Barlow';font-weight:500;font-display:swap;src:url(schrift/barlow-500.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-weight:700;font-display:swap;src:url(schrift/barlow-700.woff2) format('woff2')}
+@font-face{font-family:'Barlow Semi Condensed';font-weight:700;font-display:swap;src:url(schrift/barlow-semi-condensed-700.woff2) format('woff2')}
+
+:root{
+  --grund:#0a0d18; --flaeche:#141a2b; --rand:rgba(255,255,255,.09);
+  --text:#e9eef8; --leise:#a9b3c7; --akzent:#5b8cff; --warn:#e0a13c;
+  --breite:1080px;
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--grund);color-scheme:dark}
+body{font-family:'Barlow',system-ui,-apple-system,sans-serif;font-weight:500;color:var(--text);
+  line-height:1.55;font-size:17px;
+  background:radial-gradient(120% 60% at 20% 0%,#1b2440 0%,#11162a 45%,var(--grund) 100%) no-repeat}
+a{color:var(--akzent)}
+h1,h2,h3{font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-weight:700;line-height:1.1}
+h2{font-size:30px;margin-bottom:18px}
+h3{font-size:21px;margin-bottom:8px}
+main{max-width:var(--breite);margin:0 auto;padding:0 20px}
+section{padding:44px 0}
+
+.oben{max-width:var(--breite);margin:0 auto;padding:14px 20px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;flex-wrap:wrap}
+.marke-oben{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;
+  font-family:'Barlow Semi Condensed',sans-serif;font-weight:700;font-size:20px}
+.marke-oben img{border-radius:9px}
+.sprachen{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14px}
+.sprachen a{color:var(--leise);text-decoration:none}
+.sprachen a[aria-current]{color:var(--text);font-weight:700}
+
+.held{display:grid;grid-template-columns:1fr;gap:36px;padding-top:24px}
+.symbol{border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.held h1{font-size:64px;margin-top:20px}
+.untertitel{font-size:24px;color:var(--leise);margin-top:6px}
+.lead{font-size:19px;margin:20px 0 26px;max-width:34em}
+.badge{display:inline-block;line-height:0}
+.badge img{height:56px;width:auto}
+.preis{margin-top:12px;color:var(--leise);font-size:15px}
+/* Bilder auf dem Handy quer wischbar, am Rechner neben dem Text. */
+.galerie{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;
+  margin:0 -20px;padding-left:20px;padding-right:20px}
+.galerie figure{flex:0 0 62%;max-width:260px;scroll-snap-align:start}
+.galerie img{width:100%;height:auto;display:block;border-radius:22px;border:1px solid var(--rand);
+  box-shadow:0 14px 40px rgba(0,0,0,.5)}
+
+.saeulen{display:grid;grid-template-columns:1fr;gap:16px}
+.saeule{background:var(--flaeche);border:1px solid var(--rand);border-radius:16px;padding:22px}
+.saeule p{color:var(--leise)}
+
+.funktionen ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr;gap:10px}
+.funktionen li{padding-left:26px;position:relative}
+.funktionen li::before{content:'';position:absolute;left:4px;top:.6em;width:9px;height:9px;border-radius:3px;
+  background:var(--akzent);box-shadow:0 0 8px var(--akzent)}
+
+/* Vorab ehrlich: wer kein Jira hat, soll das hier lesen und nicht kaufen. */
+.vorab{background:color-mix(in srgb,var(--warn) 9%,var(--flaeche));border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);
+  border-radius:16px;padding:26px;margin:44px 0}
+.vorab p+p{margin-top:10px}
+
+.faq details{border-top:1px solid var(--rand);padding:16px 0}
+.faq details:last-child{border-bottom:1px solid var(--rand)}
+.faq summary{cursor:pointer;font-weight:700;font-size:18px}
+.faq details p{margin-top:10px;color:var(--leise)}
+
+.schluss{text-align:center}
+
+.recht{max-width:760px}
+.recht h1{font-size:44px;margin:24px 0 8px}
+.recht h1 span{color:var(--leise);font-size:26px}
+.recht h2{font-size:24px;margin:34px 0 10px}
+.recht p{margin-top:10px}
+
+footer{max-width:var(--breite);margin:20px auto 0;padding:30px 20px 40px;border-top:1px solid var(--rand);
+  display:grid;gap:14px;font-size:14px;color:var(--leise)}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--text);text-decoration:none}
+.marke{font-size:13px}
+
+@media (min-width:860px){
+  .held{grid-template-columns:1fr 1.15fr;align-items:center;padding-top:40px}
+  .held h1{font-size:76px}
+  .galerie{margin:0;padding:0;overflow:visible;display:grid;grid-template-columns:repeat(3,1fr)}
+  .galerie figure{max-width:none}
+  .galerie figure:nth-child(4){display:none}
+  .galerie figure:nth-child(2){transform:translateY(-22px)}
+  .saeulen{grid-template-columns:repeat(3,1fr)}
+  .funktionen ul{grid-template-columns:1fr 1fr;gap:12px 30px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
