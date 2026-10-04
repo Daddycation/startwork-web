@@ -199,6 +199,34 @@ def impressum():
                  BASIS + 'impressum/', 1, 'de') + rumpf + fuss('de', t, 1))
 
 
+def weiterleitung(sprache, t):
+    """Kurzer Teilen-Link: zeigt in Messengern die eigene Vorschaukarte statt
+    Apples Symbol auf weissem Grund und springt beim Oeffnen in den App Store.
+    Messenger lesen die og-Angaben, bevor die Weiterleitung greift."""
+    ziel = APP_STORE
+    return f'''<!doctype html>
+<html lang="{t['hreflang']}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(t['titel'])}</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{BASIS}{t['ordner']}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StartWork – {e(t['untertitel'])}">
+<meta property="og:description" content="{e(t['beschreibung'])}">
+<meta property="og:url" content="{BASIS}{t['ordner']}app/">
+<meta property="og:image" content="{BASIS}assets/bild/karte-{sprache}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta http-equiv="refresh" content="0; url={ziel}">
+</head>
+<body><a href="{ziel}">{e(t['badge_alt'])}</a></body>
+</html>
+'''
+
+
 def sitemap():
     eintraege = []
     for t in TEXTE.values():
@@ -253,6 +281,8 @@ def main():
     pruefen()
     for sprache, t in TEXTE.items():
         schreiben(os.path.join(t['ordner'], 'index.html'), seite(sprache, t))
+    for sprache, t in TEXTE.items():
+        schreiben(os.path.join(t['ordner'], 'app', 'index.html'), weiterleitung(sprache, t))
     schreiben('impressum/index.html', impressum())
     schreiben('sitemap.xml', sitemap())
     schreiben('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {BASIS}sitemap.xml\n')
