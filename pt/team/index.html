@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StartWork em equipe – modelo de equipe e distribuição por MDM</title>
+<meta name="description" content="Configure uma vez e compartilhe um link: endereço do Jira, blocos e regras para toda a equipe. Sem token no link. Distribuição possível pelo gerenciamento de dispositivos.">
+<link rel="canonical" href="https://startwork.iamnotadev.xyz/pt/team/">
+<link rel="alternate" hreflang="en" href="https://startwork.iamnotadev.xyz/team/">
+<link rel="alternate" hreflang="de" href="https://startwork.iamnotadev.xyz/de/team/">
+<link rel="alternate" hreflang="fr" href="https://startwork.iamnotadev.xyz/fr/team/">
+<link rel="alternate" hreflang="pt-BR" href="https://startwork.iamnotadev.xyz/pt/team/">
+<link rel="alternate" hreflang="es" href="https://startwork.iamnotadev.xyz/es/team/">
+<link rel="alternate" hreflang="x-default" href="https://startwork.iamnotadev.xyz/team/">
+<meta name="apple-itunes-app" content="app-id=6813155367">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StartWork em equipe – modelo de equipe e distribuição por MDM">
+<meta property="og:description" content="Configure uma vez e compartilhe um link: endereço do Jira, blocos e regras para toda a equipe. Sem token no link. Distribuição possível pelo gerenciamento de dispositivos.">
+<meta property="og:url" content="https://startwork.iamnotadev.xyz/pt/team/">
+<meta property="og:image" content="https://startwork.iamnotadev.xyz/assets/bild/karte-pt.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0d18">
+<link rel="icon" href="../../assets/symbol-32.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/symbol-180.png">
+<link rel="stylesheet" href="../../assets/stil.css">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header class="oben">
+  <a class="marke-oben" href="../../pt/"><img src="../../assets/symbol-180.png" alt="" width="36" height="36">StartWork</a>
+  <nav class="sprachen" aria-label="Idioma"><a href="../../team/" hreflang="en" lang="en">English</a><a href="../../de/team/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/team/" hreflang="fr" lang="fr">Français</a><a href="../../pt/team/" hreflang="pt-BR" lang="pt-BR" aria-current="page">Português</a><a href="../../es/team/" hreflang="es" lang="es">Español</a></nav>
+</header>
+<main class="team">
+<h1>StartWork em equipe</h1>
+<section class="vorlage" id="vorlage" hidden>
+  <h2>Modelo de equipe</h2>
+  <p>Alguém da sua equipe configurou o StartWork e está compartilhando as configurações com você.</p>
+  <div id="vgut" hidden>
+    <dl class="eckdaten">
+      <dt>Endereço do Jira</dt><dd id="vadresse"></dd>
+      <dt>Blocos</dt><dd id="vkacheln"></dd>
+      <dt>Arredondamento</dt><dd id="vrundung"></dd>
+      <dt>Refinamento por IA</dt><dd id="vki"></dd>
+    </dl>
+    <p>1. Baixe o StartWork, se ainda não tiver.</p>
+    <a class="badge" href="https://apps.apple.com/app/id6813155367"><img src="../../assets/app-store-badge.svg" alt="Baixar na App Store" width="180" height="60"></a>
+    <p>2. Abra o modelo. O StartWork mostra antes o que será aplicado – depois é só informar o seu próprio token.</p>
+    <a class="knopf" id="voeffnen" href="#">Abrir no StartWork</a>
+    <p class="leise">Nada abriu? No StartWork, vá em Ajustes → Equipe → “Usar um modelo de equipe” e cole este link.</p>
+    <div class="kopie"><input id="vlink" readonly aria-label="Link"><button id="vkopieren" type="button">Copiar link</button></div>
+    <p class="leise">O modelo fica no link, depois do #. Essa parte nunca é enviada a um servidor – esta página só a lê no seu navegador.</p>
+  </div>
+  <p class="warnung" id="vschlecht" hidden>Este link não contém um modelo de equipe válido. Peça um novo a quem o compartilhou.</p>
+</section>
+<section class="team-held">
+  <p class="lead">Cada pessoa registra horas com o próprio acesso ao Jira – e a equipe fica configurada em um minuto. Sem servidor, sem conta, sem assinatura.</p>
+  <a class="badge" href="https://apps.apple.com/app/id6813155367"><img src="../../assets/app-store-badge.svg" alt="Baixar na App Store" width="180" height="60"></a>
+  <p class="preis">Compra única · sem assinatura · iPhone</p>
+</section>
+<section>
+  <h2>Como configurar a equipe</h2>
+  <ol class="zahlen"><li>Uma pessoa configura o StartWork: endereço do Jira, blocos para os seus tickets, arredondamento.</li><li>Em Ajustes → Equipe → “Compartilhar modelo de equipe” surge um link – para o chat da equipe, por exemplo.</li><li>Quem abre o link vê antes o que será aplicado, confirma e informa o próprio token. Pronto.</li></ol>
+</section>
+<section>
+  <h2>O que vai no link – e o que não vai</h2>
+  <p>Vai: endereço do Jira, blocos (ticket, título, cliente, cor), arredondamento e se o refinamento por IA é permitido.</p>
+  <p>Não vai: token, e-mail, chave de IA, registros de trabalho. Se um link aponta para um endereço do Jira diferente do anterior, o StartWork apaga o token salvo – ele nunca vai para um endereço estranho.</p>
+</section>
+<section>
+  <h2>Para a TI: distribuir pelo gerenciamento de dispositivos</h2>
+  <p>Compre licenças em volume no Apple Business, em “Apps e Livros”, e atribua-as a dispositivos ou pessoas pelo gerenciamento de dispositivos (MDM).</p>
+  <p>Com a configuração de app gerenciada, você define dois valores para o StartWork:</p>
+  <dl class="schluessel">
+    <dt><code>vorlage</code></dt><dd>Link de um modelo de equipe (string). O StartWork o aplica ao abrir, sem perguntar – uma vez a cada mudança; depois, cada pessoa pode ajustar os próprios blocos.</dd>
+    <dt><code>kiAus</code></dt><dd>true (booleano) desativa o refinamento por IA. Ele não pode ser ativado no app, e nada é enviado à Anthropic.</dd>
+  </dl>
+  <pre><code>&lt;dict&gt;
+  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;string&gt;https://startwork.iamnotadev.xyz/pt/team/#v1.…&lt;/string&gt;
+  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;true/&gt;
+&lt;/dict&gt;</code></pre>
+  <p>Cada pessoa informa o próprio token do Jira. Ele fica nas Chaves do sistema do iPhone e só vai para o seu Jira.</p>
+</section>
+<section>
+  <h2>Dúvidas ou pedidos para a equipe?</h2>
+  <p>Quer adotar o StartWork na sua equipe ou sente falta de algo? Escreva para <a href="mailto:info@iamnotadev.xyz">info@iamnotadev.xyz</a></p>
+  <p><a href="../../pt/">Mais sobre o StartWork</a></p>
+</section>
+</main>
+<script type="application/json" id="team-texte">{"rundung_exakt": "Exato", "rundung_min": "{n} min", "ki_an": "permitido", "ki_aus": "desativado na equipe", "kopieren": "Copiar link", "kopiert": "Copiado"}</script>
+<script src="../../assets/team.js"></script>
+<footer>
+  <nav class="sprachen" aria-label="Idioma"><a href="../../team/" hreflang="en" lang="en">English</a><a href="../../de/team/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/team/" hreflang="fr" lang="fr">Français</a><a href="../../pt/team/" hreflang="pt-BR" lang="pt-BR" aria-current="page">Português</a><a href="../../es/team/" hreflang="es" lang="es">Español</a></nav>
+  <nav class="links">
+    <a href="https://daddycation.github.io/startwork-datenschutz/pt/support">Ajuda</a>
+    <a href="https://daddycation.github.io/startwork-datenschutz/pt/">Privacidade</a>
+    <a href="../../impressum/">Aviso legal</a>
+    <a href="mailto:info@iamnotadev.xyz">Contato</a>
+  </nav>
+  <p class="marke">Jira é uma marca da Atlassian, Tempo uma marca da Tempo ehf. O StartWork não tem vínculo com essas empresas.</p>
+</footer>
+</body>
+</html>

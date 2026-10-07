@@ -71,6 +71,34 @@ section{padding:44px 0}
 .recht h2{font-size:24px;margin:34px 0 10px}
 .recht p{margin-top:10px}
 
+/* Team-Seite. Die Vorlagen-Karte erscheint nur mit #v1... im Link. */
+[hidden]{display:none!important}
+.team{max-width:820px}
+.team h1{font-size:52px;margin-top:24px}
+.team section{padding:28px 0}
+.team section p+p{margin-top:10px}
+.vorlage{background:color-mix(in srgb,var(--akzent) 10%,var(--flaeche));border:1px solid color-mix(in srgb,var(--akzent) 45%,transparent);
+  border-radius:16px;padding:24px!important;margin:22px 0}
+.vorlage h2{font-size:26px;margin-bottom:6px}
+.vorlage p{margin-top:12px}
+.eckdaten{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:16px 0 4px}
+.eckdaten dt{color:var(--leise)}
+.eckdaten dd{margin:0;overflow-wrap:anywhere}
+.knopf{display:inline-block;margin-top:10px;background:var(--akzent);color:#fff;text-decoration:none;font-weight:700;
+  border-radius:12px;padding:12px 22px}
+.leise{color:var(--leise);font-size:15px}
+.kopie{display:flex;gap:8px;margin-top:10px}
+.kopie input{flex:1;min-width:0;background:var(--grund);color:var(--text);border:1px solid var(--rand);border-radius:10px;
+  padding:10px;font:inherit;font-size:14px}
+.kopie button{background:var(--flaeche);color:var(--text);border:1px solid var(--rand);border-radius:10px;padding:10px 14px;
+  font:inherit;cursor:pointer}
+.warnung{color:var(--warn);margin-top:12px}
+.zahlen{padding-left:22px;display:grid;gap:10px}
+.schluessel dt{margin-top:14px}
+.schluessel dd{margin:4px 0 0;color:var(--leise)}
+.team pre{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:16px;overflow-x:auto;margin:16px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
+
 footer{max-width:var(--breite);margin:20px auto 0;padding:30px 20px 40px;border-top:1px solid var(--rand);
   display:grid;gap:14px;font-size:14px;color:var(--leise)}
 footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}

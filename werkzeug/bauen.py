@@ -13,6 +13,12 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from texte import TEXTE  # noqa: E402
+from team_texte import TEAM  # noqa: E402
+
+# Die Team-Seite beschreibt Funktionen ab App-Version 1.3. Bis die im Store
+# ist, bleibt sie unauffindbar: noindex, nicht in Sitemap, Fusszeile und
+# llms.txt. Erreichbar ist sie trotzdem - fuer Links aus Testversionen.
+TEAM_OEFFENTLICH = False
 
 WURZEL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASIS = 'https://startwork.iamnotadev.xyz/'
@@ -30,17 +36,20 @@ e = html.escape
 
 def pruefen():
     """Alle Sprachen muessen dieselben Schluessel haben."""
-    vorlage = set(TEXTE['en'])
-    for sprache, t in TEXTE.items():
-        fehlt = vorlage ^ set(t)
-        if fehlt:
-            sys.exit(f'FEHLER: {sprache} weicht bei {sorted(fehlt)} ab.')
+    for name, alle in (('TEXTE', TEXTE), ('TEAM', TEAM)):
+        if set(alle) != set(TEXTE):
+            sys.exit(f'FEHLER: {name} hat andere Sprachen als TEXTE.')
+        vorlage = set(alle['en'])
+        for sprache, t in alle.items():
+            fehlt = vorlage ^ set(t)
+            if fehlt:
+                sys.exit(f'FEHLER: {name}[{sprache}] weicht bei {sorted(fehlt)} ab.')
 
 
-def alternativen():
-    zeilen = [f'<link rel="alternate" hreflang="{t["hreflang"]}" href="{BASIS}{t["ordner"]}">'
+def alternativen(pfad=''):
+    zeilen = [f'<link rel="alternate" hreflang="{t["hreflang"]}" href="{BASIS}{t["ordner"]}{pfad}">'
               for t in TEXTE.values()]
-    zeilen.append(f'<link rel="alternate" hreflang="x-default" href="{BASIS}">')
+    zeilen.append(f'<link rel="alternate" hreflang="x-default" href="{BASIS}{pfad}">')
     return '\n'.join(zeilen)
 
 
@@ -64,15 +73,15 @@ def strukturdaten(sprache, t):
                    for d in (app, faq))
 
 
-def sprachwahl(aktuell, tiefe):
+def sprachwahl(aktuell, tiefe, pfad=''):
     zurueck = '../' * tiefe
     return ''.join(
-        f'<a href="{zurueck}{t["ordner"]}" hreflang="{t["hreflang"]}" lang="{t["hreflang"]}"'
+        f'<a href="{zurueck}{t["ordner"]}{pfad}" hreflang="{t["hreflang"]}" lang="{t["hreflang"]}"'
         + (' aria-current="page"' if s == aktuell else '') + f'>{e(t["name"])}</a>'
         for s, t in TEXTE.items())
 
 
-def kopf(t, titel, beschreibung, kanonisch, tiefe, karte):
+def kopf(t, titel, beschreibung, kanonisch, tiefe, karte, pfad=''):
     zurueck = '../' * tiefe
     return f'''<!doctype html>
 <html lang="{t['hreflang']}">
@@ -82,7 +91,7 @@ def kopf(t, titel, beschreibung, kanonisch, tiefe, karte):
 <title>{e(titel)}</title>
 <meta name="description" content="{e(beschreibung)}">
 <link rel="canonical" href="{kanonisch}">
-{alternativen()}
+{alternativen(pfad)}
 <meta name="apple-itunes-app" content="app-id={APP_ID}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{e(titel)}">
@@ -97,13 +106,15 @@ def kopf(t, titel, beschreibung, kanonisch, tiefe, karte):
 '''
 
 
-def fuss(sprache, t, tiefe):
+def fuss(sprache, t, tiefe, pfad=''):
     zurueck = '../' * tiefe
     recht = RECHT + RECHT_ORDNER[sprache]
+    team = (f'<a href="{zurueck}{t["ordner"]}team/">{e(TEAM[sprache]["h1"])}</a>\n    '
+            if TEAM_OEFFENTLICH else '')
     return f'''<footer>
-  <nav class="sprachen" aria-label="{e(t['sprache'])}">{sprachwahl(sprache, tiefe)}</nav>
+  <nav class="sprachen" aria-label="{e(t['sprache'])}">{sprachwahl(sprache, tiefe, pfad)}</nav>
   <nav class="links">
-    <a href="{recht}support">{e(t['hilfe'])}</a>
+    {team}<a href="{recht}support">{e(t['hilfe'])}</a>
     <a href="{recht}">{e(t['datenschutz'])}</a>
     <a href="{zurueck}impressum/">{e(t['impressum'])}</a>
     <a href="mailto:{KONTAKT}">{e(t['kontakt'])}</a>
@@ -227,12 +238,98 @@ def weiterleitung(sprache, t):
 '''
 
 
+# Die Team-Seite darf nur eigene Dateien laden und nichts senden: connect-src
+# faellt auf default-src 'none' zurueck. Dass die Vorlage an keinen Server
+# geht, erzwingt so der Browser - es steht nicht nur im Text.
+CSP_TEAM = ("default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; "
+            "font-src 'self'; base-uri 'none'; form-action 'none'")
+
+
+def teamseite(sprache, t):
+    """StartWork im Team: Infoseite fuer Teams und IT. Steht #v1... im Link,
+    zeigt assets/team.js oben die geteilte Vorlage und den Weg in die App."""
+    tt = TEAM[sprache]
+    tiefe = 2 if t['ordner'] else 1
+    zurueck = '../' * tiefe
+    kanonisch = f'{BASIS}{t["ordner"]}team/'
+    so = ''.join(f'<li>{e(s)}</li>' for s in tt['so'])
+    beispiel = e(f'<dict>\n  <key>vorlage</key>\n  <string>{kanonisch}#v1.…</string>\n'
+                 '  <key>kiAus</key>\n  <true/>\n</dict>')
+    fuer_js = {k: tt[k] for k in ('rundung_exakt', 'rundung_min', 'ki_an', 'ki_aus', 'kopieren', 'kopiert')}
+    texte_js = json.dumps(fuer_js, ensure_ascii=False).replace('</', '<\\/')
+    robots = '' if TEAM_OEFFENTLICH else '<meta name="robots" content="noindex">\n'
+    return (kopf(t, tt['titel'], tt['beschreibung'], kanonisch, tiefe, sprache, 'team/') + f'''<meta http-equiv="Content-Security-Policy" content="{CSP_TEAM}">
+{robots}</head>
+<body>
+<header class="oben">
+  <a class="marke-oben" href="{zurueck}{t['ordner']}"><img src="{zurueck}assets/symbol-180.png" alt="" width="36" height="36">StartWork</a>
+  <nav class="sprachen" aria-label="{e(t['sprache'])}">{sprachwahl(sprache, tiefe, 'team/')}</nav>
+</header>
+<main class="team">
+<h1>{e(tt['h1'])}</h1>
+<section class="vorlage" id="vorlage" hidden>
+  <h2>{e(tt['vorlage_titel'])}</h2>
+  <p>{e(tt['vorlage_einleitung'])}</p>
+  <div id="vgut" hidden>
+    <dl class="eckdaten">
+      <dt>{e(tt['adresse'])}</dt><dd id="vadresse"></dd>
+      <dt>{e(tt['kacheln'])}</dt><dd id="vkacheln"></dd>
+      <dt>{e(tt['rundung'])}</dt><dd id="vrundung"></dd>
+      <dt>{e(tt['ki'])}</dt><dd id="vki"></dd>
+    </dl>
+    <p>{e(tt['schritt_laden'])}</p>
+    {badge(t, tiefe)}
+    <p>{e(tt['schritt_oeffnen'])}</p>
+    <a class="knopf" id="voeffnen" href="#">{e(tt['oeffnen'])}</a>
+    <p class="leise">{e(tt['ausweich'])}</p>
+    <div class="kopie"><input id="vlink" readonly aria-label="Link"><button id="vkopieren" type="button">{e(tt['kopieren'])}</button></div>
+    <p class="leise">{e(tt['vorlage_privat'])}</p>
+  </div>
+  <p class="warnung" id="vschlecht" hidden>{e(tt['ungueltig'])}</p>
+</section>
+<section class="team-held">
+  <p class="lead">{e(tt['lead'])}</p>
+  {badge(t, tiefe)}
+  <p class="preis">{e(t['preis'])}</p>
+</section>
+<section>
+  <h2>{e(tt['so_titel'])}</h2>
+  <ol class="zahlen">{so}</ol>
+</section>
+<section>
+  <h2>{e(tt['link_titel'])}</h2>
+  <p>{e(tt['link_drin'])}</p>
+  <p>{e(tt['link_nicht'])}</p>
+</section>
+<section>
+  <h2>{e(tt['it_titel'])}</h2>
+  <p>{e(tt['it_kauf'])}</p>
+  <p>{e(tt['it_konfig'])}</p>
+  <dl class="schluessel">
+    <dt><code>vorlage</code></dt><dd>{e(tt['it_vorlage'])}</dd>
+    <dt><code>kiAus</code></dt><dd>{e(tt['it_kiaus'])}</dd>
+  </dl>
+  <pre><code>{beispiel}</code></pre>
+  <p>{e(tt['it_token'])}</p>
+</section>
+<section>
+  <h2>{e(tt['kontakt_titel'])}</h2>
+  <p>{e(tt['kontakt_text'])} <a href="mailto:{KONTAKT}">{KONTAKT}</a></p>
+  <p><a href="{zurueck}{t['ordner']}">{e(tt['mehr'])}</a></p>
+</section>
+</main>
+<script type="application/json" id="team-texte">{texte_js}</script>
+<script src="{zurueck}assets/team.js"></script>
+''' + fuss(sprache, t, tiefe, 'team/'))
+
+
 def sitemap():
     eintraege = []
-    for t in TEXTE.values():
-        alt = ''.join(f'<xhtml:link rel="alternate" hreflang="{a["hreflang"]}" href="{BASIS}{a["ordner"]}"/>'
-                      for a in TEXTE.values())
-        eintraege.append(f'<url><loc>{BASIS}{t["ordner"]}</loc><lastmod>{STAND}</lastmod>{alt}</url>')
+    for pfad in [''] + (['team/'] if TEAM_OEFFENTLICH else []):
+        for t in TEXTE.values():
+            alt = ''.join(f'<xhtml:link rel="alternate" hreflang="{a["hreflang"]}" href="{BASIS}{a["ordner"]}{pfad}"/>'
+                          for a in TEXTE.values())
+            eintraege.append(f'<url><loc>{BASIS}{t["ordner"]}{pfad}</loc><lastmod>{STAND}</lastmod>{alt}</url>')
     eintraege.append(f'<url><loc>{BASIS}impressum/</loc><lastmod>{STAND}</lastmod></url>')
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
@@ -242,9 +339,16 @@ def sitemap():
 def llms():
     """Kurzfassung fuer KI-Assistenten (llms.txt): Fakten statt Werbesprache,
     damit eine Empfehlung stimmt - auch die Einschraenkungen."""
-    t = TEXTE['en']
+    t, team = TEXTE['en'], TEAM['en']
     faq = '\n'.join(f'- {f} {a}' for f, a in t['faq'])
     funktionen = '\n'.join(f'- {f}' for f in t['funktionen'])
+    teams = f'''
+## Teams
+- Team page: {BASIS}team/
+- {team['link_drin']} {team['link_nicht']}
+- {team['it_kauf']}
+- Managed app configuration: `vorlage` – {team['it_vorlage']} `kiAus` – {team['it_kiaus']}
+''' if TEAM_OEFFENTLICH else ''
     return f'''# StartWork
 
 > iPhone app for logging work time to Jira as worklogs. Tap a tile to start a timer, tap again and describe the work in one sentence; the app writes a standard Jira worklog to that ticket. Runs entirely on the device: no account, no server of the developer, no analytics. One-time purchase on the App Store, no subscription.
@@ -263,7 +367,7 @@ def llms():
 - Writes standard Jira worklogs, so Tempo Timesheets sees them. Required Tempo "Work Attributes" are not filled in.
 - iPhone only. App interface in English, German, French, Portuguese and Spanish.
 - The optional AI polishing uses the user's own Anthropic API key and runs only after explicit consent.
-
+{teams}
 ## Questions
 {faq}
 '''
@@ -283,6 +387,8 @@ def main():
         schreiben(os.path.join(t['ordner'], 'index.html'), seite(sprache, t))
     for sprache, t in TEXTE.items():
         schreiben(os.path.join(t['ordner'], 'app', 'index.html'), weiterleitung(sprache, t))
+    for sprache, t in TEXTE.items():
+        schreiben(os.path.join(t['ordner'], 'team', 'index.html'), teamseite(sprache, t))
     schreiben('impressum/index.html', impressum())
     schreiben('sitemap.xml', sitemap())
     schreiben('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {BASIS}sitemap.xml\n')
