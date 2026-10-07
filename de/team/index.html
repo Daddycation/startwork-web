@@ -72,13 +72,13 @@
   <p>Lizenzen kauft ihr gesammelt in Apple Business unter „Apps und Bücher“ und weist sie über eure Geräteverwaltung (MDM) Geräten oder Personen zu.</p>
   <p>Über die verwaltete App-Konfiguration gebt ihr StartWork zwei Werte vor:</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>Link einer Team-Vorlage (Text). StartWork übernimmt ihn beim Start ohne Rückfrage – einmal je Änderung; danach dürfen die Leute ihre Kacheln selbst anpassen.</dd>
-    <dt><code>kiAus</code></dt><dd>true (Wahrheitswert) schaltet die KI-Formulierung ab. Sie lässt sich dann in der App nicht einschalten, und es geht nichts an Anthropic.</dd>
+    <dt><code>teamTemplate</code></dt><dd>Link einer Team-Vorlage (Text). StartWork übernimmt ihn beim Start ohne Rückfrage – einmal je Änderung; danach dürfen die Leute ihre Kacheln selbst anpassen.</dd>
+    <dt><code>disableAI</code></dt><dd>true (Wahrheitswert) schaltet die KI-Formulierung ab. Sie lässt sich dann in der App nicht einschalten, und es geht nichts an Anthropic.</dd>
   </dl>
   <pre><code>&lt;dict&gt;
-  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;key&gt;teamTemplate&lt;/key&gt;
   &lt;string&gt;https://startwork.iamnotadev.xyz/de/team/#v1.…&lt;/string&gt;
-  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;key&gt;disableAI&lt;/key&gt;
   &lt;true/&gt;
 &lt;/dict&gt;</code></pre>
   <p>Den Jira-Token trägt jede Person selbst ein. Er liegt im Schlüsselbund des iPhones und geht nur an euer Jira.</p>

@@ -72,13 +72,13 @@
   <p>Achetez les licences en volume dans Apple Business, rubrique « Apps et livres », et attribuez-les aux appareils ou aux personnes via votre gestion des appareils (MDM).</p>
   <p>La configuration d’app gérée permet d’imposer deux valeurs à StartWork :</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>Lien d’un modèle d’équipe (chaîne). StartWork l’applique au lancement sans demander – une fois par modification ; ensuite, chacun peut adapter ses tuiles.</dd>
-    <dt><code>kiAus</code></dt><dd>true (booléen) désactive la rédaction IA. Elle ne peut alors pas être activée dans l’app, et rien n’est envoyé à Anthropic.</dd>
+    <dt><code>teamTemplate</code></dt><dd>Lien d’un modèle d’équipe (chaîne). StartWork l’applique au lancement sans demander – une fois par modification ; ensuite, chacun peut adapter ses tuiles.</dd>
+    <dt><code>disableAI</code></dt><dd>true (booléen) désactive la rédaction IA. Elle ne peut alors pas être activée dans l’app, et rien n’est envoyé à Anthropic.</dd>
   </dl>
   <pre><code>&lt;dict&gt;
-  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;key&gt;teamTemplate&lt;/key&gt;
   &lt;string&gt;https://startwork.iamnotadev.xyz/fr/team/#v1.…&lt;/string&gt;
-  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;key&gt;disableAI&lt;/key&gt;
   &lt;true/&gt;
 &lt;/dict&gt;</code></pre>
   <p>Chacun saisit son propre jeton Jira. Il reste dans le trousseau de l’iPhone et ne va qu’à votre Jira.</p>

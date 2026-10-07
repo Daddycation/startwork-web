@@ -96,7 +96,8 @@ section{padding:44px 0}
 .zahlen{padding-left:22px;display:grid;gap:10px}
 .schluessel dt{margin-top:14px}
 .schluessel dd{margin:4px 0 0;color:var(--leise)}
-.team pre{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:16px;overflow-x:auto;margin:16px 0}
+.team pre{background:var(--flaeche);border:1px solid var(--rand);border-radius:12px;padding:16px;margin:16px 0;
+  white-space:pre-wrap;word-break:break-all}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 
 footer{max-width:var(--breite);margin:20px auto 0;padding:30px 20px 40px;border-top:1px solid var(--rand);

@@ -253,8 +253,8 @@ def teamseite(sprache, t):
     zurueck = '../' * tiefe
     kanonisch = f'{BASIS}{t["ordner"]}team/'
     so = ''.join(f'<li>{e(s)}</li>' for s in tt['so'])
-    beispiel = e(f'<dict>\n  <key>vorlage</key>\n  <string>{kanonisch}#v1.…</string>\n'
-                 '  <key>kiAus</key>\n  <true/>\n</dict>')
+    beispiel = e(f'<dict>\n  <key>teamTemplate</key>\n  <string>{kanonisch}#v1.…</string>\n'
+                 '  <key>disableAI</key>\n  <true/>\n</dict>')
     fuer_js = {k: tt[k] for k in ('rundung_exakt', 'rundung_min', 'ki_an', 'ki_aus', 'kopieren', 'kopiert')}
     texte_js = json.dumps(fuer_js, ensure_ascii=False).replace('</', '<\\/')
     robots = '' if TEAM_OEFFENTLICH else '<meta name="robots" content="noindex">\n'
@@ -306,8 +306,8 @@ def teamseite(sprache, t):
   <p>{e(tt['it_kauf'])}</p>
   <p>{e(tt['it_konfig'])}</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>{e(tt['it_vorlage'])}</dd>
-    <dt><code>kiAus</code></dt><dd>{e(tt['it_kiaus'])}</dd>
+    <dt><code>teamTemplate</code></dt><dd>{e(tt['it_vorlage'])}</dd>
+    <dt><code>disableAI</code></dt><dd>{e(tt['it_kiaus'])}</dd>
   </dl>
   <pre><code>{beispiel}</code></pre>
   <p>{e(tt['it_token'])}</p>
@@ -347,7 +347,7 @@ def llms():
 - Team page: {BASIS}team/
 - {team['link_drin']} {team['link_nicht']}
 - {team['it_kauf']}
-- Managed app configuration: `vorlage` – {team['it_vorlage']} `kiAus` – {team['it_kiaus']}
+- Managed app configuration: `teamTemplate` – {team['it_vorlage']} `disableAI` – {team['it_kiaus']}
 ''' if TEAM_OEFFENTLICH else ''
     return f'''# StartWork
 

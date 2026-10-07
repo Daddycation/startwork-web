@@ -72,13 +72,13 @@
   <p>Compre licenças em volume no Apple Business, em “Apps e Livros”, e atribua-as a dispositivos ou pessoas pelo gerenciamento de dispositivos (MDM).</p>
   <p>Com a configuração de app gerenciada, você define dois valores para o StartWork:</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>Link de um modelo de equipe (string). O StartWork o aplica ao abrir, sem perguntar – uma vez a cada mudança; depois, cada pessoa pode ajustar os próprios blocos.</dd>
-    <dt><code>kiAus</code></dt><dd>true (booleano) desativa o refinamento por IA. Ele não pode ser ativado no app, e nada é enviado à Anthropic.</dd>
+    <dt><code>teamTemplate</code></dt><dd>Link de um modelo de equipe (string). O StartWork o aplica ao abrir, sem perguntar – uma vez a cada mudança; depois, cada pessoa pode ajustar os próprios blocos.</dd>
+    <dt><code>disableAI</code></dt><dd>true (booleano) desativa o refinamento por IA. Ele não pode ser ativado no app, e nada é enviado à Anthropic.</dd>
   </dl>
   <pre><code>&lt;dict&gt;
-  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;key&gt;teamTemplate&lt;/key&gt;
   &lt;string&gt;https://startwork.iamnotadev.xyz/pt/team/#v1.…&lt;/string&gt;
-  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;key&gt;disableAI&lt;/key&gt;
   &lt;true/&gt;
 &lt;/dict&gt;</code></pre>
   <p>Cada pessoa informa o próprio token do Jira. Ele fica nas Chaves do sistema do iPhone e só vai para o seu Jira.</p>

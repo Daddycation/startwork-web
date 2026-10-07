@@ -72,13 +72,13 @@
   <p>Compra licencias por volumen en Apple Business, en «Apps y libros», y asígnalas a dispositivos o personas con tu gestión de dispositivos (MDM).</p>
   <p>Con la configuración de apps gestionada puedes fijar dos valores para StartWork:</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>Enlace de una plantilla de equipo (cadena). StartWork la aplica al abrirse sin preguntar – una vez por cada cambio; después, cada persona puede ajustar sus mosaicos.</dd>
-    <dt><code>kiAus</code></dt><dd>true (booleano) desactiva el pulido con IA. No se puede activar en la app y no se envía nada a Anthropic.</dd>
+    <dt><code>teamTemplate</code></dt><dd>Enlace de una plantilla de equipo (cadena). StartWork la aplica al abrirse sin preguntar – una vez por cada cambio; después, cada persona puede ajustar sus mosaicos.</dd>
+    <dt><code>disableAI</code></dt><dd>true (booleano) desactiva el pulido con IA. No se puede activar en la app y no se envía nada a Anthropic.</dd>
   </dl>
   <pre><code>&lt;dict&gt;
-  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;key&gt;teamTemplate&lt;/key&gt;
   &lt;string&gt;https://startwork.iamnotadev.xyz/es/team/#v1.…&lt;/string&gt;
-  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;key&gt;disableAI&lt;/key&gt;
   &lt;true/&gt;
 &lt;/dict&gt;</code></pre>
   <p>Cada persona introduce su propio token de Jira. Se guarda en el llavero del iPhone y solo va a tu Jira.</p>

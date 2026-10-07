@@ -72,13 +72,13 @@
   <p>Buy licenses in bulk in Apple Business under “Apps and Books” and assign them to devices or people through your device management (MDM).</p>
   <p>With managed app configuration you can preset two values for StartWork:</p>
   <dl class="schluessel">
-    <dt><code>vorlage</code></dt><dd>Link to a team template (string). StartWork applies it at launch without asking – once per change; after that, people may adjust their tiles.</dd>
-    <dt><code>kiAus</code></dt><dd>true (boolean) turns AI polishing off. It can’t be switched on in the app, and nothing is sent to Anthropic.</dd>
+    <dt><code>teamTemplate</code></dt><dd>Link to a team template (string). StartWork applies it at launch without asking – once per change; after that, people may adjust their tiles.</dd>
+    <dt><code>disableAI</code></dt><dd>true (boolean) turns AI polishing off. It can’t be switched on in the app, and nothing is sent to Anthropic.</dd>
   </dl>
   <pre><code>&lt;dict&gt;
-  &lt;key&gt;vorlage&lt;/key&gt;
+  &lt;key&gt;teamTemplate&lt;/key&gt;
   &lt;string&gt;https://startwork.iamnotadev.xyz/team/#v1.…&lt;/string&gt;
-  &lt;key&gt;kiAus&lt;/key&gt;
+  &lt;key&gt;disableAI&lt;/key&gt;
   &lt;true/&gt;
 &lt;/dict&gt;</code></pre>
   <p>Everyone enters their own Jira token. It stays in the iPhone’s keychain and only goes to your Jira.</p>
